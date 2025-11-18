@@ -1,0 +1,179 @@
+{
+  "1": {
+    "inputs": {
+      "image": "example.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Input Image"
+    }
+  },
+  "2": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "image": ["1", 0]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Scale Image"
+    }
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE"
+    }
+  },
+  "4": {
+    "inputs": {
+      "clip_name": "qwen\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "cpu"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "CLIP"
+    }
+  },
+  "5": {
+    "inputs": {
+      "gguf_name": "Qwen-Image-Edit-2509-Q5_0.gguf"
+    },
+    "class_type": "LoaderGGUF",
+    "_meta": {
+      "title": "Model"
+    }
+  },
+  "6": {
+    "inputs": {
+      "lora_name": "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors",
+      "strength_model": 1,
+      "model": ["8", 0]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LoRA"
+    }
+  },
+  "7": {
+    "inputs": {
+      "strength": 1,
+      "model": ["5", 0]
+    },
+    "class_type": "CFGNorm",
+    "_meta": {
+      "title": "CFGNorm"
+    }
+  },
+  "8": {
+    "inputs": {
+      "shift": 3,
+      "model": ["7", 0]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {
+      "title": "Sampling"
+    }
+  },
+  "9": {
+    "inputs": {
+      "prompt": "Describe what you want to change or generate based on this image",
+      "clip": ["4", 0],
+      "vae": ["3", 0],
+      "image1": ["2", 0]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "Prompt Encoder"
+    }
+  },
+  "10": {
+    "inputs": {
+      "value": 4
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "STEPS"
+    }
+  },
+  "11": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "CFG"
+    }
+  },
+  "12": {
+    "inputs": {
+      "value": 1920
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "WIDTH"
+    }
+  },
+  "13": {
+    "inputs": {
+      "value": 1080
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "HEIGHT"
+    }
+  },
+  "14": {
+    "inputs": {
+      "width": ["12", 0],
+      "height": ["13", 0],
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "Empty Latent"
+    }
+  },
+  "15": {
+    "inputs": {
+      "seed": 42,
+      "steps": ["10", 0],
+      "cfg": ["11", 0],
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": ["6", 0],
+      "positive": ["9", 0],
+      "negative": ["9", 0],
+      "latent_image": ["14", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "Sampler"
+    }
+  },
+  "16": {
+    "inputs": {
+      "samples": ["15", 0],
+      "vae": ["3", 0]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "Decode"
+    }
+  },
+  "17": {
+    "inputs": {
+      "filename_prefix": "TekQwen",
+      "images": ["16", 0]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Result"
+    }
+  }
+}

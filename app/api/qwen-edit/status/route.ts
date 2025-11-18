@@ -59,6 +59,55 @@ export async function GET(req: NextRequest) {
 
       console.log("Found images:", images);
 
+      // Eğer job tamamlandı ve görseller var ise, Supabase'e kaydet
+      if (status?.completed && images.length > 0) {
+        try {
+          const { createClient } = await import("@/lib/supabase/server");
+          const supabase = await createClient();
+
+          // User'ı al (opsiyonel - job_id üzerinden de bulunabilir)
+          const { data: { user } } = await supabase.auth.getUser();
+
+          if (user) {
+            // Her görseli Supabase Storage'a yükle ve database'e kaydet
+            for (const imgFilename of images) {
+              try {
+                // ComfyUI'den görseli al
+                const imgRes = await fetch(`${COMFY_BASE}/view?filename=${imgFilename}`);
+                const imgBlob = await imgRes.blob();
+
+                // Supabase Storage'a yükle
+                const storagePath = `${user.id}/${promptId}/${imgFilename}`;
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                  .from("user-images")
+                  .upload(storagePath, imgBlob, { upsert: true });
+
+                if (!uploadError) {
+                  // Database'e image kaydı ekle
+                  await supabase.from("images").insert({
+                    user_id: user.id,
+                    job_id: promptId, // prompt_id'yi job_id olarak kullanıyoruz
+                    filename: imgFilename,
+                    comfy_filename: imgFilename,
+                    type: "generated",
+                    storage_path: storagePath,
+                  });
+                }
+              } catch (err) {
+                console.error("Image save error:", err);
+              }
+            }
+
+            // Job'u tamamlandı olarak işaretle
+            await supabase.from("jobs")
+              .update({ status: "completed", completed_at: new Date().toISOString() })
+              .eq("prompt_id", promptId);
+          }
+        } catch (err) {
+          console.error("Supabase save error:", err);
+        }
+      }
+
       return NextResponse.json({
         status: status?.status_str || "unknown",
         completed: status?.completed || false,

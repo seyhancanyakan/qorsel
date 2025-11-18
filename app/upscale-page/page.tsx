@@ -98,9 +98,9 @@ export default function UpscalePage() {
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Upload Image to Upscale</label>
               <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} className="hidden" id="img" />
-              <label htmlFor="img" className="block w-full h-64 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer hover:border-green-500 overflow-hidden">
+              <label htmlFor="img" className="block w-full h-64 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer hover:border-green-500 overflow-hidden flex items-center justify-center bg-gray-800">
                 {imageFile ? (
-                  <img src={URL.createObjectURL(imageFile)} alt="Preview" className="w-full h-full object-cover" />
+                  <img src={URL.createObjectURL(imageFile)} alt="Preview" className="max-w-full max-h-full object-contain" />
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-gray-500">
                     <svg className="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

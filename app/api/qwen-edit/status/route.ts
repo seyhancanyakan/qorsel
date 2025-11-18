@@ -61,14 +61,17 @@ export async function GET(req: NextRequest) {
 
       // Eğer job tamamlandı ve görseller var ise, Supabase'e kaydet
       if (status?.completed && images.length > 0) {
+        console.log("🎨 JOB COMPLETE - Saving to Supabase Storage...");
         try {
           const { createClient } = await import("@/lib/supabase/server");
           const supabase = await createClient();
 
           // User'ı al (opsiyonel - job_id üzerinden de bulunabilir)
           const { data: { user } } = await supabase.auth.getUser();
+          console.log("👤 User:", user ? user.id : "NO USER - NOT LOGGED IN!");
 
           if (user) {
+            console.log("💾 Saving", images.length, "images to Storage...");
             // Her görseli Supabase Storage'a yükle ve database'e kaydet
             for (const imgFilename of images) {
               try {

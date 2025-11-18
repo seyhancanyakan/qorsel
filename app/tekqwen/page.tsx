@@ -66,8 +66,8 @@ export default function TekQwenPage() {
   }
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col">
-      <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 text-white shadow-lg">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex flex-col">
+      <div className="bg-gradient-to-r from-orange-600 to-red-600 px-6 py-4 text-white shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">Tek Resim Analiz</h1>
@@ -140,7 +140,7 @@ export default function TekQwenPage() {
               ))}
             </div>
 
-            <motion.button whileTap={{ scale: 0.98 }} onClick={handleGenerate} disabled={!imageFile} className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl disabled:opacity-50">
+            <motion.button whileTap={{ scale: 0.98 }} onClick={handleGenerate} disabled={!imageFile} className="w-full py-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl disabled:opacity-50">
               Analyze Image
             </motion.button>
           </div>

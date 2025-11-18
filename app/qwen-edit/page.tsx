@@ -160,9 +160,9 @@ export default function QwenEditPage() {
   const displayImages = upscaledImages.length > 0 ? upscaledImages : resultImages;
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 text-white shadow-lg">
+      <div className="bg-gradient-to-r from-orange-600 to-red-600 px-6 py-4 text-white shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">AI Studio</h1>
@@ -197,7 +197,7 @@ export default function QwenEditPage() {
                     <h2 className="text-2xl font-bold text-white mb-1">Results Ready!</h2>
                     <p className="text-green-400 text-sm">{resultImages.length} images</p>
                   </div>
-                  <motion.button whileTap={{ scale: 0.95 }} onClick={() => setCurrentView("results")} className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg">
+                  <motion.button whileTap={{ scale: 0.95 }} onClick={() => setCurrentView("results")} className="px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-semibold rounded-xl shadow-lg">
                     View All →
                   </motion.button>
                 </div>
@@ -297,7 +297,7 @@ export default function QwenEditPage() {
                   </div>
                 </div>
 
-                <motion.button whileTap={{ scale: 0.98 }} type="submit" className="mt-3 w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg">
+                <motion.button whileTap={{ scale: 0.98 }} type="submit" className="mt-3 w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg">
                   Generate Images
                 </motion.button>
 

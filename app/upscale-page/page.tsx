@@ -58,7 +58,7 @@ export default function UpscalePage() {
   }
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex flex-col">
       <div className="bg-gradient-to-r from-green-600 to-blue-600 px-6 py-4 text-white shadow-lg">
         <div className="flex items-center justify-between">
           <div>

@@ -202,22 +202,32 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              <Link href="/qwen-edit">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl"
+                >
+                  Multi-Image
+                </motion.button>
+              </Link>
+              <Link href="/tekqwen">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl"
+                >
+                  Quick Analysis
+                </motion.button>
+              </Link>
+            </div>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleLogout}
-              className="py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl"
+              className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl"
             >
               Logout
             </motion.button>
-            <Link href="/qwen-edit">
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl"
-              >
-                Generate New
-              </motion.button>
-            </Link>
           </div>
 
           {profile?.role === 'admin' && (

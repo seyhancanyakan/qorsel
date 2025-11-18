@@ -30,16 +30,24 @@ export async function POST(req: NextRequest) {
 
     // LoadImage node'ları - Görselleri buraya koy
     if (wf["213"]?.inputs) {
-      wf["213"].inputs.image = image1Name || wf["213"].inputs.image;
+      wf["213"].inputs.image = image1Name || "placeholder.png";
     }
     if (wf["1284"]?.inputs) {
-      wf["1284"].inputs.image = image2Name || wf["1284"].inputs.image;
+      wf["1284"].inputs.image = image2Name || "placeholder.png";
     }
     if (wf["1285"]?.inputs && image3Name) {
       wf["1285"].inputs.image = image3Name;
     }
-    if (wf["1292"]?.inputs) {
-      wf["1292"].inputs.image = image4Name || wf["1292"].inputs.image;
+    // Image4 opsiyonel - yoksa node'u devre dışı bırak
+    if (wf["1292"]?.inputs && image4Name) {
+      wf["1292"].inputs.image = image4Name;
+    } else if (wf["1292"]) {
+      // Node'u kaldır
+      delete wf["1292"];
+      delete wf["1293"];
+      delete wf["1294"];
+      delete wf["1295"];
+      delete wf["1297"];
     }
 
     // Node 1199 - Ana prompt (image1 ve image2 node referansları olarak kalacak)

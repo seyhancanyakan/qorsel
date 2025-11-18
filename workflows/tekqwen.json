@@ -10,17 +10,6 @@
   },
   "2": {
     "inputs": {
-      "upscale_method": "lanczos",
-      "megapixels": 1,
-      "image": ["1", 0]
-    },
-    "class_type": "ImageScaleToTotalPixels",
-    "_meta": {
-      "title": "Scale Image"
-    }
-  },
-  "3": {
-    "inputs": {
       "vae_name": "qwen_image_vae.safetensors"
     },
     "class_type": "VAELoader",
@@ -28,7 +17,7 @@
       "title": "VAE"
     }
   },
-  "4": {
+  "3": {
     "inputs": {
       "clip_name": "qwen\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
       "type": "qwen_image",
@@ -39,7 +28,7 @@
       "title": "CLIP"
     }
   },
-  "5": {
+  "4": {
     "inputs": {
       "gguf_name": "Qwen-Image-Edit-2509-Q5_0.gguf"
     },
@@ -48,18 +37,17 @@
       "title": "Model"
     }
   },
-  "6": {
+  "5": {
     "inputs": {
-      "lora_name": "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors",
-      "strength_model": 1,
-      "model": ["8", 0]
+      "shift": 3,
+      "model": ["4", 0]
     },
-    "class_type": "LoraLoaderModelOnly",
+    "class_type": "ModelSamplingAuraFlow",
     "_meta": {
-      "title": "LoRA"
+      "title": "Sampling"
     }
   },
-  "7": {
+  "6": {
     "inputs": {
       "strength": 1,
       "model": ["5", 0]
@@ -69,29 +57,30 @@
       "title": "CFGNorm"
     }
   },
-  "8": {
+  "7": {
     "inputs": {
-      "shift": 3,
-      "model": ["7", 0]
+      "lora_name": "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors",
+      "strength_model": 1,
+      "model": ["6", 0]
     },
-    "class_type": "ModelSamplingAuraFlow",
+    "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Sampling"
+      "title": "LoRA"
     }
   },
-  "9": {
+  "8": {
     "inputs": {
-      "prompt": "Describe what you want to change or generate based on this image",
-      "clip": ["4", 0],
-      "vae": ["3", 0],
-      "image1": ["2", 0]
+      "prompt": "Describe what you want to see",
+      "clip": ["3", 0],
+      "vae": ["2", 0],
+      "image1": ["1", 0]
     },
     "class_type": "TextEncodeQwenImageEditPlus",
     "_meta": {
-      "title": "Prompt Encoder"
+      "title": "Prompt"
     }
   },
-  "10": {
+  "9": {
     "inputs": {
       "value": 4
     },
@@ -100,7 +89,7 @@
       "title": "STEPS"
     }
   },
-  "11": {
+  "10": {
     "inputs": {
       "value": 1
     },
@@ -109,7 +98,7 @@
       "title": "CFG"
     }
   },
-  "12": {
+  "11": {
     "inputs": {
       "value": 1920
     },
@@ -118,7 +107,7 @@
       "title": "WIDTH"
     }
   },
-  "13": {
+  "12": {
     "inputs": {
       "value": 1080
     },
@@ -127,53 +116,53 @@
       "title": "HEIGHT"
     }
   },
-  "14": {
+  "13": {
     "inputs": {
-      "width": ["12", 0],
-      "height": ["13", 0],
+      "width": ["11", 0],
+      "height": ["12", 0],
       "batch_size": 1
     },
     "class_type": "EmptySD3LatentImage",
     "_meta": {
-      "title": "Empty Latent"
+      "title": "Latent"
     }
   },
-  "15": {
+  "14": {
     "inputs": {
       "seed": 42,
-      "steps": ["10", 0],
-      "cfg": ["11", 0],
+      "steps": ["9", 0],
+      "cfg": ["10", 0],
       "sampler_name": "euler",
       "scheduler": "simple",
       "denoise": 1,
-      "model": ["6", 0],
-      "positive": ["9", 0],
-      "negative": ["9", 0],
-      "latent_image": ["14", 0]
+      "model": ["7", 0],
+      "positive": ["8", 0],
+      "negative": ["8", 0],
+      "latent_image": ["13", 0]
     },
     "class_type": "KSampler",
     "_meta": {
       "title": "Sampler"
     }
   },
-  "16": {
+  "15": {
     "inputs": {
-      "samples": ["15", 0],
-      "vae": ["3", 0]
+      "samples": ["14", 0],
+      "vae": ["2", 0]
     },
     "class_type": "VAEDecode",
     "_meta": {
       "title": "Decode"
     }
   },
-  "17": {
+  "16": {
     "inputs": {
       "filename_prefix": "TekQwen",
-      "images": ["16", 0]
+      "images": ["15", 0]
     },
     "class_type": "SaveImage",
     "_meta": {
-      "title": "Save Result"
+      "title": "Result"
     }
   }
 }

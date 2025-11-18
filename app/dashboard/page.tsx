@@ -144,7 +144,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
@@ -155,13 +155,13 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex flex-col">
+    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 px-6 py-4 text-white shadow-lg">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4 text-white shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">Dashboard</h1>
-            <p className="text-purple-100 text-xs">Welcome back, {profile?.display_name || profile?.email}</p>
+            <p className="text-blue-100 text-xs">Welcome back, {profile?.display_name || profile?.email}</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">
@@ -181,7 +181,7 @@ export default function DashboardPage() {
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-600 to-red-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-full flex items-center justify-center">
                 <span className="text-2xl font-bold text-white">
                   {(profile?.display_name || profile?.email || "U")[0].toUpperCase()}
                 </span>
@@ -207,7 +207,7 @@ export default function DashboardPage() {
               <Link href="/qwen-edit">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
-                  className="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-purple-700 hover:to-pink-700 text-white text-xs font-semibold rounded-xl"
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-purple-700 hover:to-pink-700 text-white text-xs font-semibold rounded-xl"
                 >
                   Multi-Image
                 </motion.button>

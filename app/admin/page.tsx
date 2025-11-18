@@ -164,13 +164,13 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex flex-col">
+    <div className="h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 px-6 py-4 text-white shadow-lg">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4 text-white shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">Super Admin</h1>
-            <p className="text-purple-100 text-xs">Platform Management</p>
+            <p className="text-blue-100 text-xs">Platform Management</p>
           </div>
           <motion.button whileTap={{ scale: 0.9 }} onClick={handleLogout} className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-semibold">
             Logout

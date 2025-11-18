@@ -43,11 +43,11 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-orange-900 to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex items-center justify-center p-4">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="bg-gray-900/50 backdrop-blur-xl rounded-3xl p-8 border border-gray-700 shadow-2xl">
           <div className="text-center mb-8">
-            <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl flex items-center justify-center">
               <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
@@ -78,7 +78,7 @@ export default function SignupPage() {
               </div>
             )}
 
-            <motion.button whileTap={{ scale: 0.98 }} type="submit" disabled={loading} className="w-full py-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg disabled:opacity-50">
+            <motion.button whileTap={{ scale: 0.98 }} type="submit" disabled={loading} className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg disabled:opacity-50">
               {loading ? "Creating account..." : "Sign Up"}
             </motion.button>
           </form>

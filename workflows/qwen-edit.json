@@ -1,0 +1,492 @@
+{
+  "199": {
+    "inputs": {
+      "seed": 1034973049061647,
+      "steps": [
+        "844",
+        0
+      ],
+      "cfg": [
+        "850",
+        0
+      ],
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "547",
+        0
+      ],
+      "positive": [
+        "1199",
+        0
+      ],
+      "negative": [
+        "1199",
+        0
+      ],
+      "latent_image": [
+        "200",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "200": {
+    "inputs": {
+      "width": [
+        "1298",
+        0
+      ],
+      "height": [
+        "1299",
+        0
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "BoşSD3GizliGörüntü"
+    }
+  },
+  "207": {
+    "inputs": {
+      "samples": [
+        "199",
+        0
+      ],
+      "vae": [
+        "360",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Kod Çözme"
+    }
+  },
+  "208": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "207",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Görüntüyü Kaydet"
+    }
+  },
+  "213": {
+    "inputs": {
+      "image": "1kTTjpQPf9OTU4NwQ9uow.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "IMAGE 1"
+    }
+  },
+  "360": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE Yükle"
+    }
+  },
+  "362": {
+    "inputs": {
+      "clip_name": "qwen\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "cpu"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "CLIP Yükle"
+    }
+  },
+  "546": {
+    "inputs": {
+      "gguf_name": "Qwen-Image-Edit-2509-Q5_0.gguf"
+    },
+    "class_type": "LoaderGGUF",
+    "_meta": {
+      "title": "GGUF Loader"
+    }
+  },
+  "547": {
+    "inputs": {
+      "lora_name": "Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "1114",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "SadeceModelLoRA Yükleyici"
+    }
+  },
+  "844": {
+    "inputs": {
+      "value": 4
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "STEPS"
+    }
+  },
+  "850": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "CFG"
+    }
+  },
+  "1114": {
+    "inputs": {
+      "strength": 1,
+      "model": [
+        "1115",
+        0
+      ]
+    },
+    "class_type": "CFGNorm",
+    "_meta": {
+      "title": "CFGNorm"
+    }
+  },
+  "1115": {
+    "inputs": {
+      "shift": 3,
+      "model": [
+        "546",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {
+      "title": "ModelÖrneklemeAuraFlow"
+    }
+  },
+  "1199": {
+    "inputs": {
+      "prompt": "They are holding hands, getting married. Wedding photography, pixar style. ",
+      "clip": [
+        "362",
+        0
+      ],
+      "vae": [
+        "360",
+        0
+      ],
+      "image1": [
+        "1286",
+        0
+      ],
+      "image2": [
+        "1287",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "1284": {
+    "inputs": {
+      "image": "Ekran görüntüsü 2025-11-16 115404.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "IMAGE 2"
+    }
+  },
+  "1285": {
+    "inputs": {
+      "image": "21.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "IMAGE 3"
+    }
+  },
+  "1286": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "image": [
+        "213",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Görüntüyü Toplam Piksele Göre Ölçekle"
+    }
+  },
+  "1287": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "image": [
+        "1284",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Görüntüyü Toplam Piksele Göre Ölçekle"
+    }
+  },
+  "1288": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "207",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Görüntüyü Kaydet"
+    }
+  },
+  "1290": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "image": [
+        "1285",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Görüntüyü Toplam Piksele Göre Ölçekle"
+    }
+  },
+  "1292": {
+    "inputs": {
+      "image": "pexels-divinetechygirl-1181605.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "IMAGE 4 POSE"
+    }
+  },
+  "1293": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "image": [
+        "1294",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Görüntüyü Toplam Piksele Göre Ölçekle"
+    }
+  },
+  "1294": {
+    "inputs": {
+      "detect_hand": "enable",
+      "detect_body": "enable",
+      "detect_face": "enable",
+      "resolution": 1024,
+      "bbox_detector": "yolox_l.onnx",
+      "pose_estimator": "dw-ll_ucoco_384_bs5.torchscript.pt",
+      "scale_stick_for_xinsr_cn": "disable",
+      "image": [
+        "1297",
+        0
+      ]
+    },
+    "class_type": "DWPreprocessor",
+    "_meta": {
+      "title": "DWPose Estimator"
+    }
+  },
+  "1295": {
+    "inputs": {
+      "images": [
+        "1294",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "POSE PREVIEW"
+    }
+  },
+  "1297": {
+    "inputs": {
+      "width": [
+        "1298",
+        0
+      ],
+      "height": [
+        "1299",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "keep_proportion": "crop",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "1292",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "1298": {
+    "inputs": {
+      "value": 1920
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "WIDTH"
+    }
+  },
+  "1299": {
+    "inputs": {
+      "value": 1080
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "HEIGHT"
+    }
+  },
+  "1313": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "1325",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Görüntüyü Kaydet"
+    }
+  },
+  "1314": {
+    "inputs": {
+      "seed": 1034973049061647,
+      "steps": [
+        "844",
+        0
+      ],
+      "cfg": [
+        "850",
+        0
+      ],
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "547",
+        0
+      ],
+      "positive": [
+        "1323",
+        0
+      ],
+      "negative": [
+        "1323",
+        0
+      ],
+      "latent_image": [
+        "1322",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "1322": {
+    "inputs": {
+      "width": [
+        "1298",
+        0
+      ],
+      "height": [
+        "1299",
+        0
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "BoşSD3GizliGörüntü"
+    }
+  },
+  "1323": {
+    "inputs": {
+      "prompt": "Create an extreme close up of the faces. The characters are kissing. Their eyes are closed.",
+      "clip": [
+        "362",
+        0
+      ],
+      "vae": [
+        "360",
+        0
+      ],
+      "image1": [
+        "207",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "1324": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "1325",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Görüntüyü Kaydet"
+    }
+  },
+  "1325": {
+    "inputs": {
+      "samples": [
+        "1314",
+        0
+      ],
+      "vae": [
+        "360",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Kod Çözme"
+    }
+  }
+}

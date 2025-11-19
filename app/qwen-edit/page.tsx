@@ -239,30 +239,29 @@ export default function QwenEditPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    onClick={async () => {
-                      // Supabase'e kaydet
-                      try {
+                  <div className="grid grid-cols-2 gap-3">
+                    <motion.button
+                      whileTap={{ scale: 0.95 }}
+                      onClick={async () => {
                         const res = await fetch('/api/qwen-edit/save-to-gallery', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({
-                            promptId,
-                            images: resultImages
-                          })
+                          body: JSON.stringify({ promptId, images: resultImages })
                         });
-                        if (res.ok) {
-                          alert('Görseller galeriye kaydedildi!');
-                        }
-                      } catch (err) {
-                        console.error(err);
-                      }
-                    }}
-                    className="w-full py-3 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-lg"
-                  >
-                    💾 Galeriye Kaydet
-                  </motion.button>
+                        if (res.ok) alert('Kaydedildi!');
+                      }}
+                      className="py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl"
+                    >
+                      💾 Kaydet
+                    </motion.button>
+                    <motion.button
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setShowUpscaleModal(true)}
+                      className="py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl"
+                    >
+                      🔼 Upscale
+                    </motion.button>
+                  </div>
                   <motion.button whileTap={{ scale: 0.95 }} onClick={() => { setResultImages([]); setPromptId(null); setJobStatus("idle"); }} className="w-full py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-xl">
                     Generate New
                   </motion.button>

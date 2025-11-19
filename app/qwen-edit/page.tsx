@@ -442,7 +442,7 @@ export default function QwenEditPage() {
           <motion.button
             key={item.id}
             whileTap={{ scale: 0.9 }}
-            onClick={() => setCurrentView(item.id as any)}
+            onClick={() => item.id === "home" ? window.location.href = "/dashboard" : setCurrentView(item.id as any)}
             className={`flex flex-col items-center space-y-1 relative transition-colors ${currentView === item.id ? "text-purple-400" : "text-gray-500"}`}
           >
             {item.badge && item.badge > 0 && (

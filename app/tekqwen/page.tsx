@@ -97,9 +97,25 @@ export default function TekQwenPage() {
             <div className="flex-1 bg-gray-800 rounded-xl overflow-hidden mb-4">
               <img src={`${COMFY_BASE}/view?filename=${result}`} alt="Result" className="w-full h-full object-contain" />
             </div>
-            <motion.button whileTap={{ scale: 0.95 }} onClick={() => { setResult(null); setImageFile(null); }} className="w-full py-3 bg-purple-600 text-white font-bold rounded-xl">
-              Analyze Another
-            </motion.button>
+            <div className="grid grid-cols-2 gap-3">
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={async () => {
+                  const res = await fetch('/api/qwen-edit/save-to-gallery', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ promptId: result, images: [result] })
+                  });
+                  if (res.ok) alert('Kaydedildi!');
+                }}
+                className="py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl"
+              >
+                💾 Kaydet
+              </motion.button>
+              <motion.button whileTap={{ scale: 0.95 }} onClick={() => { setResult(null); setImageFile(null); }} className="py-3 bg-purple-600 text-white font-bold rounded-xl">
+                Yeni Analiz
+              </motion.button>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">

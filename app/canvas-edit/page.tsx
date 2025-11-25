@@ -552,54 +552,50 @@ export default function CanvasEditPage() {
 
           {activeTab === "enhance" && (
             <div className="bg-gray-800 rounded-xl p-4 space-y-3">
-              <h3 className="text-white font-bold mb-3">Final Enhancement</h3>
+              <h3 className="text-white font-bold mb-3">✅ Composition Complete</h3>
 
-              <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-3 mb-3">
-                <p className="text-blue-400 text-sm mb-2">
-                  💡 <strong>Note:</strong> This refines the ENTIRE composition!
+              <div className="bg-green-900/20 border border-green-700 rounded-lg p-3 mb-3">
+                <p className="text-green-400 text-sm mb-2">
+                  🎨 <strong>Your composition is ready!</strong>
                 </p>
                 <p className="text-gray-400 text-xs">
-                  For individual layer edits, use the ✏️ Edit button in Canvas tab.
+                  Use Layer Edit (✏️ button) in Canvas tab to enhance individual elements with AI.
                 </p>
               </div>
 
-              <div>
-                <label className="text-white text-sm font-semibold mb-2 block">Enhancement Prompt (Türkçe veya English)</label>
-                <textarea
-                  value={positivePrompt}
-                  onChange={(e) => setPositivePrompt(e.target.value)}
-                  rows={3}
-                  placeholder="e.g., 'vibrant colors, professional lighting, high quality' veya 'canlı renkler, profesyonel aydınlatma'"
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-                />
-              </div>
+              {compositeFile ? (
+                <div className="space-y-3">
+                  <a
+                    href={URL.createObjectURL(compositeFile)}
+                    download="composition.png"
+                    className="block w-full py-4 bg-gradient-to-r from-green-600 to-blue-700 hover:from-green-700 hover:to-blue-800 text-white font-bold rounded-xl text-center text-sm"
+                  >
+                    📥 Download Composition
+                  </a>
 
-              <div>
-                <label className="text-white text-sm font-semibold mb-2 block">Negative Prompt</label>
-                <input
-                  value={negativePrompt}
-                  onChange={(e) => setNegativePrompt(e.target.value)}
-                  placeholder="blurry, low quality, distorted"
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-                />
-              </div>
-
-              {!compositeFile && (
-                <div className="bg-yellow-900/30 border border-yellow-600 rounded-lg p-3 mb-3">
+                  <button
+                    onClick={() => {
+                      setCompositeFile(null);
+                      setActiveTab("canvas");
+                    }}
+                    className="w-full py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-xl text-sm"
+                  >
+                    ← Back to Canvas
+                  </button>
+                </div>
+              ) : (
+                <div className="bg-yellow-900/30 border border-yellow-600 rounded-lg p-3">
                   <p className="text-yellow-400 text-sm">
-                    ⚠️ Please create a composition in the Canvas tab first
+                    ⚠️ Please create a composition in the Canvas tab first (click "📸 Use Composition")
                   </p>
+                  <button
+                    onClick={() => setActiveTab("canvas")}
+                    className="mt-3 w-full py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg text-sm"
+                  >
+                    Go to Canvas
+                  </button>
                 </div>
               )}
-
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                onClick={handleGenerate}
-                disabled={!compositeFile || loading}
-                className="w-full py-4 bg-gradient-to-r from-orange-600 to-red-700 hover:from-orange-700 hover:to-red-800 text-white font-bold rounded-xl disabled:opacity-50 text-sm"
-              >
-                ✨ Enhance Composition
-              </motion.button>
             </div>
           )}
         </div>

@@ -1,0 +1,24 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "IMAGE_NAME_PLACEHOLDER"
+    }
+  },
+  "2": {
+    "class_type": "easy imageRemBg",
+    "inputs": {
+      "images": ["1", 0],
+      "rem_mode": "RMBG-1.4",
+      "image_output": "Preview",
+      "save_prefix": "rmbg"
+    }
+  },
+  "3": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "rmbg_output",
+      "images": ["2", 0]
+    }
+  }
+}

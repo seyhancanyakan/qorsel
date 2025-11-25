@@ -201,12 +201,18 @@ export default function CanvasEditPage() {
       // Upload the composite image
       const compositeName = await uploadImage(compositeFile);
 
+      // Use Qwen-Edit API with correct parameters
       const formData = new FormData();
-      formData.append('backgroundImage', compositeName);
-      formData.append('positivePrompt', englishPositive);
-      formData.append('negativePrompt', englishNegative);
+      formData.append('prompt1', englishPositive);
+      formData.append('prompt2', '');
+      formData.append('image1Name', compositeName);
+      formData.append('image2Name', compositeName);
+      formData.append('steps', '6');
+      formData.append('cfg', '1.5');
+      formData.append('width', '1280');
+      formData.append('height', '736');
 
-      const res = await fetch('/api/canvas-edit/run', { method: 'POST', body: formData });
+      const res = await fetch('/api/qwen-edit/run', { method: 'POST', body: formData });
       const data = await res.json();
 
       if (!res.ok) {
@@ -221,7 +227,7 @@ export default function CanvasEditPage() {
       while (!completed && Date.now() - startTime < 300000) {
         await new Promise(r => setTimeout(r, 3000));
 
-        const statusRes = await fetch(`/api/canvas-edit/status?prompt_id=${promptId}&_=${Date.now()}`, {
+        const statusRes = await fetch(`/api/qwen-edit/status?prompt_id=${promptId}&_=${Date.now()}`, {
           cache: 'no-store'
         });
         const statusData = await statusRes.json();
@@ -546,15 +552,24 @@ export default function CanvasEditPage() {
 
           {activeTab === "enhance" && (
             <div className="bg-gray-800 rounded-xl p-4 space-y-3">
-              <h3 className="text-white font-bold mb-3">Final AI Enhancement</h3>
+              <h3 className="text-white font-bold mb-3">Final Enhancement</h3>
+
+              <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-3 mb-3">
+                <p className="text-blue-400 text-sm mb-2">
+                  💡 <strong>Note:</strong> This refines the ENTIRE composition!
+                </p>
+                <p className="text-gray-400 text-xs">
+                  For individual layer edits, use the ✏️ Edit button in Canvas tab.
+                </p>
+              </div>
 
               <div>
-                <label className="text-white text-sm font-semibold mb-2 block">Positive Prompt</label>
+                <label className="text-white text-sm font-semibold mb-2 block">Enhancement Prompt (Türkçe veya English)</label>
                 <textarea
                   value={positivePrompt}
                   onChange={(e) => setPositivePrompt(e.target.value)}
-                  rows={2}
-                  placeholder="Describe your desired composition..."
+                  rows={3}
+                  placeholder="e.g., 'vibrant colors, professional lighting, high quality' veya 'canlı renkler, profesyonel aydınlatma'"
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
@@ -564,7 +579,7 @@ export default function CanvasEditPage() {
                 <input
                   value={negativePrompt}
                   onChange={(e) => setNegativePrompt(e.target.value)}
-                  placeholder="What to avoid..."
+                  placeholder="blurry, low quality, distorted"
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
@@ -583,7 +598,7 @@ export default function CanvasEditPage() {
                 disabled={!compositeFile || loading}
                 className="w-full py-4 bg-gradient-to-r from-orange-600 to-red-700 hover:from-orange-700 hover:to-red-800 text-white font-bold rounded-xl disabled:opacity-50 text-sm"
               >
-                🎨 Generate AI Edit
+                ✨ Enhance Composition
               </motion.button>
             </div>
           )}

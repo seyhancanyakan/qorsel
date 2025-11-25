@@ -134,7 +134,6 @@ export async function POST(req: NextRequest) {
         { error: "ComfyUI error", details: responseText },
         { status: 500 }
       );
-    }
 
     const promptData = JSON.parse(responseText);
     const promptId = promptData.prompt_id;

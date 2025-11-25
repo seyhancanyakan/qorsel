@@ -14,8 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Background image required" }, { status: 400 });
     }
 
-    // For now, simple workflow - will expand later
-    // This is a placeholder that uses qwen-edit workflow
+    // Image-to-Image edit workflow using Qwen
     const simpleWorkflow = {
       "1": {
         "inputs": { "image": backgroundImage },
@@ -62,31 +61,34 @@ export async function POST(req: NextRequest) {
         },
         "class_type": "TextEncodeQwenImageEditPlus"
       },
-      "13": {
-        "inputs": { "width": 1280, "height": 736, "batch_size": 1 },
-        "class_type": "EmptySD3LatentImage"
+      "9": {
+        "inputs": {
+          "pixels": ["1", 0],
+          "vae": ["2", 0]
+        },
+        "class_type": "VAEEncode"
       },
-      "14": {
+      "10": {
         "inputs": {
           "seed": Math.floor(Math.random() * 1000000000),
-          "steps": 4,
-          "cfg": 1,
+          "steps": 8,
+          "cfg": 2.0,
           "sampler_name": "euler",
           "scheduler": "simple",
-          "denoise": 1,
+          "denoise": 0.85,
           "model": ["7", 0],
           "positive": ["8", 0],
           "negative": ["8", 0],
-          "latent_image": ["13", 0]
+          "latent_image": ["9", 0]
         },
         "class_type": "KSampler"
       },
-      "15": {
-        "inputs": { "samples": ["14", 0], "vae": ["2", 0] },
+      "11": {
+        "inputs": { "samples": ["10", 0], "vae": ["2", 0] },
         "class_type": "VAEDecode"
       },
-      "16": {
-        "inputs": { "filename_prefix": "canvas", "images": ["15", 0] },
+      "12": {
+        "inputs": { "filename_prefix": "canvas_enhanced", "images": ["11", 0] },
         "class_type": "SaveImage"
       }
     };

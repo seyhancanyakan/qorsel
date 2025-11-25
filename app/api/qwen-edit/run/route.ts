@@ -89,6 +89,26 @@ export async function POST(req: NextRequest) {
       prompt1323: wf["1323"]?.inputs?.prompt?.substring(0, 50),
     });
 
+    // Enable image-to-image mode for composition editing
+    if (wf["199"]?.inputs && image1Name && image1Name.trim() !== "") {
+      console.log("🔄 Qwen-Edit: Activating img2img mode");
+
+      // Add VAEEncode node
+      wf["200_encode"] = {
+        inputs: {
+          pixels: ["213", 0],
+          vae: ["549", 0],
+        },
+        class_type: "VAEEncode",
+      };
+
+      // Switch KSampler to use encoded latent
+      wf["199"].inputs.latent_image = ["200_encode", 0];
+      wf["199"].inputs.denoise = 0.75;
+
+      console.log("✅ Img2img enabled with denoise 0.75");
+    }
+
     // ComfyUI'ye gönder
     const body = {
       prompt: wf,

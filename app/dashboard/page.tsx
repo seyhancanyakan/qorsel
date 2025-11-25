@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import type { Profile, Job, Image } from "@/lib/types/database";
 import Link from "next/link";
+import MobileFooter from "@/components/MobileFooter";
 
 const COMFY_BASE = process.env.NEXT_PUBLIC_COMFYUI_BASE_URL ?? "http://127.0.0.1:8188";
 
@@ -203,7 +204,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-3">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <Link href="/qwen-edit">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
@@ -220,12 +221,28 @@ export default function DashboardPage() {
                   Quick Edit
                 </motion.button>
               </Link>
+              <Link href="/virtual-tryon">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-700 hover:from-purple-700 hover:to-pink-800 text-white text-xs font-semibold rounded-xl"
+                >
+                  Virtual Try-On
+                </motion.button>
+              </Link>
               <Link href="/upscale-page">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   className="w-full py-3 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white text-xs font-semibold rounded-xl"
                 >
                   Upscale
+                </motion.button>
+              </Link>
+              <Link href="/canvas-edit">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full py-3 bg-gradient-to-r from-orange-600 to-red-700 hover:from-orange-700 hover:to-red-800 text-white text-xs font-semibold rounded-xl"
+                >
+                  Canvas AI Edit
                 </motion.button>
               </Link>
             </div>
@@ -343,14 +360,16 @@ export default function DashboardPage() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="relative bg-gray-800/50 rounded-xl overflow-hidden aspect-video cursor-pointer group"
+                  className="relative bg-gray-800/50 rounded-xl overflow-hidden cursor-pointer group flex flex-col"
                   onClick={() => setFullscreenImage(img.comfy_filename || img.filename)}
                 >
-                  <img
-                    src={`${COMFY_BASE}/view?filename=${img.comfy_filename || img.filename}`}
-                    alt={img.filename}
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="aspect-[3/4] flex items-center justify-center bg-gray-900">
+                    <img
+                      src={`${COMFY_BASE}/view?filename=${img.comfy_filename || img.filename}`}
+                      alt={img.filename}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                     <motion.button
                       whileTap={{ scale: 0.9 }}
@@ -429,6 +448,8 @@ export default function DashboardPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <MobileFooter />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import MobileFooter from "@/components/MobileFooter";
 
 const COMFY_BASE = process.env.NEXT_PUBLIC_COMFYUI_BASE_URL ?? "http://127.0.0.1:8188";
 
@@ -432,31 +433,7 @@ export default function QwenEditPage() {
         )}
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="bg-gray-900 border-t border-gray-800 px-6 py-3 flex justify-around">
-        {[
-          { id: "home", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6", label: "Home" },
-          { id: "results", icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z", label: "Gallery", badge: resultImages.length },
-          { id: "settings", icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4", label: "Settings" },
-        ].map((item) => (
-          <motion.button
-            key={item.id}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => item.id === "home" ? window.location.href = "/dashboard" : setCurrentView(item.id as any)}
-            className={`flex flex-col items-center space-y-1 relative transition-colors ${currentView === item.id ? "text-purple-400" : "text-gray-500"}`}
-          >
-            {item.badge && item.badge > 0 && (
-              <div className="absolute -top-1 right-0 w-5 h-5 bg-purple-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs font-bold">{item.badge}</span>
-              </div>
-            )}
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-            </svg>
-            <span className="text-xs">{item.label}</span>
-          </motion.button>
-        ))}
-      </div>
+      <MobileFooter />
 
       {/* Fullscreen Image Modal */}
       <AnimatePresence>

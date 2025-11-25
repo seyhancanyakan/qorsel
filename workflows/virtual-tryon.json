@@ -1,0 +1,373 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "qwen_image_edit_2509_fp8_e4m3fn.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Difüzyon Modeli Yükle"
+    }
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "qwen\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "CLIP Yükle"
+    }
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE Yükle"
+    }
+  },
+  "39": {
+    "inputs": {
+      "image": "{{PERSON_IMAGE}}"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Person Image"
+    }
+  },
+  "77": {
+    "inputs": {
+      "seed": 149409673121358,
+      "steps": 8,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "beta",
+      "denoise": 1,
+      "model": [
+        "82",
+        0
+      ],
+      "positive": [
+        "128",
+        0
+      ],
+      "negative": [
+        "129",
+        0
+      ],
+      "latent_image": [
+        "142",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "82": {
+    "inputs": {
+      "lora_name": "extract-outfit_v3.safetensors",
+      "strength_model": 1,
+      "model": [
+        "102",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Outfit Extract Lora"
+    }
+  },
+  "84": {
+    "inputs": {
+      "samples": [
+        "77",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Kod Çözme"
+    }
+  },
+  "85": {
+    "inputs": {
+      "filename_prefix": "result",
+      "images": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Görüntüyü Kaydet"
+    }
+  },
+  "102": {
+    "inputs": {
+      "lora_name": "Qwen-Image-Edit-2509-Lightning-8steps-V1.0-fp32.safetensors",
+      "strength_model": 1,
+      "model": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Lightning Lora"
+    }
+  },
+  "104": {
+    "inputs": {
+      "image": "{{CLOTHING_IMAGE}}"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Reference Clothing"
+    }
+  },
+  "128": {
+    "inputs": {
+      "prompt": "{{EXTRACT_PROMPT}}",
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "image1": [
+        "104",
+        0
+      ],
+      "image2": [
+        "130",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "129": {
+    "inputs": {
+      "prompt": "",
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "image1": [
+        "104",
+        0
+      ],
+      "image2": [
+        "130",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "130": {
+    "inputs": {
+      "image": "{{POSE_IMAGE}}"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "OpenPose"
+    }
+  },
+  "133": {
+    "inputs": {
+      "prompt": "",
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "image1": [
+        "155",
+        0
+      ],
+      "image2": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "134": {
+    "inputs": {
+      "seed": 844848029830752,
+      "steps": 8,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "beta",
+      "denoise": 1,
+      "model": [
+        "136",
+        0
+      ],
+      "positive": [
+        "135",
+        0
+      ],
+      "negative": [
+        "133",
+        0
+      ],
+      "latent_image": [
+        "143",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "135": {
+    "inputs": {
+      "prompt": "{{TRANSFER_PROMPT}}",
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "image1": [
+        "155",
+        0
+      ],
+      "image2": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "136": {
+    "inputs": {
+      "lora_name": "clothtransfer.safetensors",
+      "strength_model": 1,
+      "model": [
+        "102",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Outfit Transfer Lora"
+    }
+  },
+  "139": {
+    "inputs": {
+      "samples": [
+        "134",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Kod Çözme"
+    }
+  },
+  "140": {
+    "inputs": {
+      "filename_prefix": "result",
+      "images": [
+        "139",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Görüntüyü Kaydet"
+    }
+  },
+  "142": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "BoşSD3GizliGörüntü"
+    }
+  },
+  "143": {
+    "inputs": {
+      "width": [
+        "156",
+        0
+      ],
+      "height": [
+        "156",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "BoşSD3GizliGörüntü"
+    }
+  },
+  "155": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "megapixels": 1,
+      "image": [
+        "39",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Görüntüyü Toplam Piksele Göre Ölçekle"
+    }
+  },
+  "156": {
+    "inputs": {
+      "image": [
+        "155",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  }
+}

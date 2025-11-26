@@ -123,7 +123,7 @@ export default function CanvasEditPage() {
         await new Promise(r => setTimeout(r, 3000));
 
         try {
-          const statusRes = await fetch(`/api/qwen-edit/status?prompt_id=${promptId}&_=${Date.now()}`, {
+          const statusRes = await fetch(`/api/canvas-edit/status?prompt_id=${promptId}&_=${Date.now()}`, {
             cache: "no-store"
           });
           const statusData = await statusRes.json();
@@ -221,7 +221,7 @@ export default function CanvasEditPage() {
       formData.append('width', '1920');
       formData.append('height', '1080');
 
-      const res = await fetch('/api/qwen-edit/run', { method: 'POST', body: formData });
+      const res = await fetch('/api/canvas-edit/run', { method: 'POST', body: formData });
       const data = await res.json();
 
       if (!res.ok) {
@@ -236,7 +236,7 @@ export default function CanvasEditPage() {
       while (!completed && Date.now() - startTime < 300000) {
         await new Promise(r => setTimeout(r, 3000));
 
-        const statusRes = await fetch(`/api/qwen-edit/status?prompt_id=${promptId}&_=${Date.now()}`, {
+        const statusRes = await fetch(`/api/canvas-edit/status?prompt_id=${promptId}&_=${Date.now()}`, {
           cache: 'no-store'
         });
         const statusData = await statusRes.json();

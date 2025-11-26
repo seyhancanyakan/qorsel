@@ -147,7 +147,8 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (err: any) {
-    console.error("Qwen edit run error:", err);
+    console.error("❌ Qwen edit run error:", err);
+    console.error("Error stack:", err.stack);
     return NextResponse.json(
       { error: "Server error", details: String(err?.message ?? err) },
       { status: 500 }

@@ -71,11 +71,11 @@ export async function POST(req: NextRequest) {
       "10": {
         "inputs": {
           "seed": Math.floor(Math.random() * 1000000000),
-          "steps": 8,
-          "cfg": 2.0,
+          "steps": 30,
+          "cfg": 1.5,
           "sampler_name": "euler",
           "scheduler": "simple",
-          "denoise": 0.85,
+          "denoise": 0.5,
           "model": ["7", 0],
           "positive": ["8", 0],
           "negative": ["8", 0],

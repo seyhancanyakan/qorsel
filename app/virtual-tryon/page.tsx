@@ -53,12 +53,12 @@ export default function VirtualTryOnPage() {
   const [upscaling, setUpscaling] = useState<string | null>(null);
 
   const prompt = multiView
-    ? "extract the outfit from the image, show it from front, back, and side view on white background"
-    : "extract the outfit";
+    ? "Extract the EXACT outfit from the clothing image preserving all details: color, pattern, style, fabric texture. Show the model wearing this IDENTICAL outfit from front, back, and side view. The outfit must match EXACTLY with the original clothing image."
+    : "Extract the EXACT outfit from the clothing image with all details: exact color, pattern, style, fabric. Preserve every detail accurately.";
 
   const transferPrompt = multiView
-    ? "transfer the outfit onto the model, display the model wearing this outfit from front, back, and side angles"
-    : "transfer the outfit";
+    ? "FULL BODY SHOT of the model including face, head, and entire body. Transfer this EXACT outfit onto the model with 100% accuracy. The model must wear the IDENTICAL clothing preserving: exact color, exact pattern, exact style, exact fit. Display the COMPLETE model (head to toe, including face) wearing this outfit in 3 different angles: front view, back view, and side view. Each view shows the FULL BODY of the same model from head to toe. Background: professional studio lighting, full body fashion photography."
+    : "FULL BODY SHOT of the model including face, head, arms, legs, and entire body from head to toe. Transfer this EXACT outfit onto the model with perfect accuracy. The clothing must be IDENTICAL to the reference: same color, same pattern, same style, same fit. Show COMPLETE full body of the model wearing the outfit. Professional fashion photography, full body shot, good lighting.";
 
   async function handleGenerate() {
     const hasModel = selectedModel !== null || personFile !== null;

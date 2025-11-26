@@ -198,16 +198,30 @@ export default function CanvasEditPage() {
         }
       }
 
-      // Upload the composite image
-      const compositeName = await uploadImage(compositeFile);
+      // Upload background + layers SEPARATELY
+      const bgName = await uploadImage(backgroundFile);
 
-      // Use canvas-edit API with VAEEncode img2img workflow
+      const layerNames: string[] = [];
+      for (let i = 0; i < Math.min(imageFiles.length, 3); i++) {
+        if (imageFiles[i]) {
+          layerNames.push(await uploadImage(imageFiles[i]!));
+        }
+      }
+
+      // Qwen-Edit with separate images
       const formData = new FormData();
-      formData.append('backgroundImage', compositeName);
-      formData.append('positivePrompt', englishPositive);
-      formData.append('negativePrompt', englishNegative);
+      formData.append('prompt1', englishPositive);
+      formData.append('prompt2', '');
+      formData.append('image1Name', bgName);
+      formData.append('image2Name', layerNames[0] || bgName);
+      if (layerNames[1]) formData.append('image3Name', layerNames[1]);
+      if (layerNames[2]) formData.append('image4Name', layerNames[2]);
+      formData.append('steps', '30');
+      formData.append('cfg', '1.5');
+      formData.append('width', '1920');
+      formData.append('height', '1080');
 
-      const res = await fetch('/api/canvas-edit/run', { method: 'POST', body: formData });
+      const res = await fetch('/api/qwen-edit/run', { method: 'POST', body: formData });
       const data = await res.json();
 
       if (!res.ok) {

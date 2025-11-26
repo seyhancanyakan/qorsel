@@ -28,18 +28,26 @@ export async function POST(req: NextRequest) {
 
     console.log("Received images:", { image1Name, image2Name, image3Name, image4Name });
 
+    // Validate required images
+    if (!image1Name || image1Name.trim() === "") {
+      return NextResponse.json({ error: "image1Name (background) is required" }, { status: 400 });
+    }
+    if (!image2Name || image2Name.trim() === "") {
+      return NextResponse.json({ error: "image2Name is required" }, { status: 400 });
+    }
+
     // LoadImage node'ları - Görselleri buraya koy
     if (wf["213"]?.inputs) {
-      wf["213"].inputs.image = image1Name || "placeholder.png";
+      wf["213"].inputs.image = image1Name;
     }
     if (wf["1284"]?.inputs) {
-      wf["1284"].inputs.image = image2Name || "placeholder.png";
+      wf["1284"].inputs.image = image2Name;
     }
-    if (wf["1285"]?.inputs && image3Name) {
+    if (wf["1285"]?.inputs && image3Name && image3Name.trim() !== "") {
       wf["1285"].inputs.image = image3Name;
     }
     // Image4 opsiyonel - yoksa node'u devre dışı bırak
-    if (wf["1292"]?.inputs && image4Name) {
+    if (wf["1292"]?.inputs && image4Name && image4Name.trim() !== "") {
       wf["1292"].inputs.image = image4Name;
     } else if (wf["1292"]) {
       // Node'u kaldır
